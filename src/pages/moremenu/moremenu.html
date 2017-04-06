@@ -1,0 +1,33 @@
+<ion-list class="moremenu-page">
+   <ion-row class="row-dots">
+        <ion-col>
+          <button ion-button="dot" (click)="changeTheme('white')" class="dot-white" [class.selected]="theme == 'white'"></button>
+        </ion-col>
+        <ion-col>
+          <button ion-button="dot" (click)="changeTheme('tan')" class="dot-tan" [class.selected]="theme == 'tan'"></button>
+        </ion-col>
+        <ion-col>
+          <button ion-button="dot" (click)="changeTheme('grey')" class="dot-grey" [class.selected]="theme == 'grey'"></button>
+        </ion-col>
+        <ion-col>
+          <button ion-button="dot" (click)="changeTheme('black')" class="dot-black" [class.selected]="theme == 'black'"></button>
+        </ion-col>
+      </ion-row>
+	  
+	<ion-item>
+    <ion-label>Level</ion-label>
+    <ion-select [(ngModel)]="gameLevel" (ionChange)="changeGameLevel($event)">
+      <ion-option value="2">2-Back</ion-option>
+      <ion-option value="3">3-Back</ion-option>
+      <ion-option value="4">4-Back</ion-option>
+      <ion-option value="5">5-Back</ion-option>
+      <ion-option value="6">6-Back</ion-option>
+      <ion-option value="7">7-Back</ion-option>
+    </ion-select>
+  </ion-item>
+  
+  <ion-item (click)="showHighscores()">
+     View Highscores...
+  </ion-item>
+  
+</ion-list>

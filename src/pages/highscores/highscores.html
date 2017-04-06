@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Highscores
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android, windows, browser"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+      
+  
+      <ion-item>
+          <b item-left>PLAYER</b>
+		  <b style="margin-left: 100px">SCORE</b>
+		  <b item-right>LEVEL</b>
+      </ion-item>
+      <ion-item *ngFor="let hs of highscores">
+          <span item-left>{{ hs.score ? hs.name : "---" }}</span>
+		  <span  style="position: absolute; top: 12px; left: 180px">{{ hs.score ? padLeft(hs.score, 5) : "---" }}</span>
+		  <span item-right>{{ hs.score ? hs.level : "---" }}</span>
+      </ion-item>
+  </ion-list>
+</ion-content>

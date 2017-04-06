@@ -1,0 +1,32 @@
+page-home {
+
+}
+
+@keyframes upgodown {
+    from {margin-top: -50px}
+    to {margin-top: 0px;}
+}
+
+@keyframes downgodown {
+    from {margin-top: 0px}
+    to {margin-top: 50px;}
+}
+
+.anim-upgodown {
+
+animation-name: upgodown;
+animation-duration: 0.3s;
+
+}
+
+.anim-downgodown {
+
+animation-name: downgodown;
+animation-duration: 0.3s;
+
+}
+
+.num-button {
+
+	height: 50px;
+}
