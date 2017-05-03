@@ -27,7 +27,7 @@ export class HomePage {
   
   gameover = false;
   newLevel = -1;
-  highscores = [];
+  highscores = { };
   loseTimeOut = null;
   startLevelTimeout = null;
   gameLevel = 3;
@@ -37,6 +37,7 @@ export class HomePage {
   playing = false;
   upOp = "";
   downOp = "";
+  playerName = "";
 
   ionViewDidLoad()
   {
@@ -169,9 +170,10 @@ export class HomePage {
 		 if(this.score == 0)
 			 return -1;
 		
-		 for(var i=0; i < this.highscores.length; i++)
+		
+		 for(var i=0; i < this.highscores[this.gameLevel].length; i++)
 		 {
-			 if(this.gameLevel > this.highscores[i].level || (this.gameLevel == this.highscores[i].level && this.score >= this.highscores[i].score))
+			 if(this.score >= this.highscores[this.gameLevel][i].score)
 			 {
 				 return i;
 			 }
@@ -179,14 +181,14 @@ export class HomePage {
 		 return -1;
 	}
 	
-	saveHighscore(name)
+	saveHighscore()
 	{
 		var index = this.isHighscore();
 		if(index > -1)
 		{
 			
-			this.highscores.splice(index, 0, { score: this.score, level: this.gameLevel, name: name });
-			this.highscores.splice(10,1);
+			this.highscores[this.gameLevel].splice(index, 0, { score: this.score, name: this.playerName });
+			this.highscores[this.gameLevel].splice(10,1);
 		}
 				
 		
@@ -198,25 +200,31 @@ export class HomePage {
 		
 	}
 	
+	fixHighscores()
+	{
+		for(var i=2; i <= 7; i++)
+		{
+			this.highscores[i] = this.highscores[i] || [];
+			while(this.highscores[i].length < 10)
+			{
+				this.highscores[i].push({ name: "", score: 0 });
+			}
+		}
+	}
+	
 	retrieveHighscores(){
 		
 		this.nativeStorage.getItem('highscores')
 		  .then(
 			data => { this.highscores = data;
 		
-				this.highscores = this.highscores || [];
-                while(this.highscores.length < 10)
-				{
-					this.highscores.push({ name: "", level: 0, score: 0 });
-				}	
+				this.highscores = this.highscores || {};
+                this.fixHighscores();	
 			},
 			error => {
 				
-				this.highscores = [];
-				while(this.highscores.length < 10)
-				{
-					this.highscores.push({ name: "", level: 0, score: 0 });
-				}
+				this.highscores = {};
+				this.fixHighscores();
 			}
 		  );
 	}
@@ -256,7 +264,7 @@ export class HomePage {
 					{
 					  name: 'name',
 					  placeholder: 'Name',
-					  max: 10
+					  value: this.playerName
 					},
 				  ],
 				  buttons: [
@@ -264,7 +272,8 @@ export class HomePage {
 					  text: 'Save and try again',
 					  handler: data => {
 						
-							this.saveHighscore(data.name);
+							this.playerName = data.name;
+							this.saveHighscore();
 							this.reset();
 					  }
 					}

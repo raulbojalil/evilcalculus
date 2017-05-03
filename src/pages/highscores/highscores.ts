@@ -10,7 +10,8 @@ import { Component } from '@angular/core';
 })
 export class HighscoresPage {
 
-  highscores = [];
+  highscores = {};
+  level = "2";
   constructor(public navCtrl : NavController, public viewCtrl: ViewController, public navParams: NavParams) {
 		
 	 this.highscores = navParams.data.highscores;

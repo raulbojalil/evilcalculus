@@ -12,18 +12,48 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-list>
-      
+
+<div padding>
+  <ion-segment [(ngModel)]="level">
+    <ion-segment-button value="2">
+      2-Back
+    </ion-segment-button>
+    <ion-segment-button value="3">
+      3-Back
+    </ion-segment-button>
+	<ion-segment-button value="4">
+      4-Back
+    </ion-segment-button>
+	<ion-segment-button value="5">
+      5-Back
+    </ion-segment-button>
+	<ion-segment-button value="6">
+      6-Back
+    </ion-segment-button>
+	<ion-segment-button value="7">
+      7-Back
+    </ion-segment-button>
+  </ion-segment>
+</div>
+
+<div [ngSwitch]="level">
+  <div *ngFor="let l of ['2', '3', '4', '5', '6', '7']">
+	  <ion-list *ngSwitchCase="l">
+		  <ion-item>
+			  <b item-left>PLAYER</b>
+			  <b item-right>SCORE</b>
+		  </ion-item>
+		  <ion-item *ngFor="let hs of highscores[l]">
+			  <span item-left>{{ hs.score ? hs.name : "---" }}</span>
+			  <span item-right>{{ hs.score ? padLeft(hs.score, 5) : "---" }}</span>
+		  </ion-item>
+
+
+	  </ion-list>
+  </div>
   
-      <ion-item>
-          <b item-left>PLAYER</b>
-		  <b style="margin-left: 100px">SCORE</b>
-		  <b item-right>LEVEL</b>
-      </ion-item>
-      <ion-item *ngFor="let hs of highscores">
-          <span item-left>{{ hs.score ? hs.name : "---" }}</span>
-		  <span  style="position: absolute; top: 12px; left: 180px">{{ hs.score ? padLeft(hs.score, 5) : "---" }}</span>
-		  <span item-right>{{ hs.score ? hs.level : "---" }}</span>
-      </ion-item>
-  </ion-list>
+  
+</div>
+
+  
 </ion-content>
